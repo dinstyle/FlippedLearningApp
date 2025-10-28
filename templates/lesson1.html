@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <title>{{ lesson_title }}</title>
+</head>
+<body>
+    <h1>{{ lesson_title }}</h1>
+
+    <h3>Homework video</h3>
+    <iframe width="560" height="315"
+        src="{{ video_url }}"
+        title="Lesson video"
+        frameborder="0"
+        allowfullscreen></iframe>
+
+    <h3>Your notes</h3>
+    <form method="POST">
+        <textarea name="notes" rows="6" cols="60" placeholder="Write your notes here...">{{ notes }}</textarea><br><br>
+
+        <label>
+            <input type="checkbox" name="watched" {% if watched %}checked{% endif %}>
+            I watched the video
+        </label><br><br>
+
+        <button type="submit">Save</button>
+    </form>
+
+     <!-- 2️⃣ Workbook Activity (Bitmap Image Tasks) -->
+    <h3>2. Workbook Activity – Bitmap Tasks</h3>
+
+    <!-- Task 1 -->
+    <h4>Task 1: 1-bit image</h4>
+    <img src="{{ url_for('static', filename='task1.png') }}" alt="1-bit image" width="400"><br><br>
+    <label>The term pixel is short for:</label><br>
+    <input type="text" name="t1_q1" value="{{ t1_q1 }}"><br><br>
+
+    <label>Pixels are arranged on a VDU display in:</label><br>
+    <input type="text" name="t1_q2" value="{{ t1_q2 }}"><br><br>
+
+    <label>In this image, the colour depth is:</label><br>
+    <input type="text" name="t1_q3" value="{{ t1_q3 }}"><br><br>
+
+    <label>The size of this image in pixels is:</label><br>
+    <input type="text" name="t1_q4" value="{{ t1_q4 }}"><br><br>
+
+    <label>The file size can be calculated as:</label><br>
+    <input type="text" name="t1_q5" value="{{ t1_q5 }}"><br><br>
+
+    <label>The file size for this image is:</label><br>
+    <input type="text" name="t1_q6" value="{{ t1_q6 }}"><br>
+    <hr>
+
+    <!-- Task 2 -->
+    <h4>Task 2: 2-bit image</h4>
+    <img src="{{ url_for('static', filename='task2.png') }}" alt="2-bit image" width="400"><br><br>
+    <label>In this image, the colour depth is:</label><br>
+    <input type="text" name="t2_q1" value="{{ t2_q1 }}"><br><br>
+
+    <label>The file size of this image is:</label><br>
+    <input type="text" name="t2_q2" value="{{ t2_q2 }}"><br><br>
+
+    <label>The colour palette meta-data is:</label><br>
+    <input type="text" name="t2_q3" value="{{ t2_q3 }}"><br>
+    <hr>
+
+    <!-- Task 3 -->
+    <h4>Task 3: 3-bit image</h4>
+    <img src="{{ url_for('static', filename='task3.png') }}" alt="3-bit image" width="400"><br><br>
+    <label>In this image, the colour depth is:</label><br>
+    <input type="text" name="t3_q1" value="{{ t3_q1 }}"><br><br>
+
+    <label>The impact of colour depth on the file size:</label><br>
+    <textarea name="t3_q2" rows="2" cols="60">{{ t3_q2 }}</textarea><br><br>
+
+    <label>The impact of resolution on the file size:</label><br>
+    <textarea name="t3_q3" rows="2" cols="60">{{ t3_q3 }}</textarea>
+    <hr>
+
+    <!-- Task 4 -->
+    <h4>Task 4: Converting black & white image to binary</h4>
+    <img src="{{ url_for('static', filename='task4.png') }}" alt="Conversion image" width="400"><br><br>
+    <label>Binary data:</label><br>
+    <textarea name="t4_q1" rows="4" cols="80">{{ t4_q1 }}</textarea>
+    <hr>
+
+    <!-- 3️⃣ Interactive Seneca Activity -->
+    <h3>3. Interactive Activity (Seneca)</h3>
+    <p>Click the link below to open the assigned Seneca task. Complete it and then mark it as done here.</p>
+
+    <a href="{{ seneca_url }}" target="_blank">Open Seneca Assignment</a><br><br>
+
+    <label>
+        <input type="checkbox" name="interactive_done" {% if interactive_done %}checked{% endif %}>
+        I have completed the Seneca activity
+    </label>
+    <hr>
+
+    <!-- 4️⃣ Exam Question -->
+    <h3>4. Exam Question</h3>
+    <p><strong>Question:</strong> What is the minimum file size for an 800 pixel by 1000 pixel bitmap image that uses 20 different colours?  
+    Give your answer in kilobytes. You should show your working. <em>(Total 3 marks)</em></p>
+
+    <textarea name="exam_answer" rows="5" cols="80" placeholder="Show your working here...">{{ exam_answer }}</textarea>
+    <hr>
+
+
+    <br>
+    <a href="{{ url_for('student_dashboard') }}">⬅ Back to Dashboard</a>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ lesson_title }} – Flipped Learning App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container mt-5 mb-5">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="text-primary">{{ lesson_title }}</h1>
+                <p class="text-secondary mb-0">Complete the tasks below to finish your lesson.</p>
+            </div>
+            <a href="{{ url_for('student_dashboard') }}" class="btn btn-outline-secondary">⬅ Back</a>
+        </div>
+
+        <form method="POST">
+            <!-- Task 1: Homework Video -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title text-dark">1. Homework Video</h4>
+                    <div class="ratio ratio-16x9 mb-3">
+                        <iframe src="{{ video_url }}" title="Lesson video" allowfullscreen></iframe>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="watched" name="watched" {% if watched %}checked{% endif %}>
+                        <label class="form-check-label" for="watched">I have watched the video</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task 2: Workbook Activity -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title text-dark">2. Workbook Activity</h4>
+
+                    <!-- Task 1 -->
+                    <h5 class="mt-3 text-secondary">Task 1 – 1-bit Image</h5>
+                    <img src="{{ url_for('static', filename='images/task1.png') }}" class="img-fluid rounded shadow-sm mb-3" width="300">
+                    <ol>
+                        <li>The term pixel is short for:
+                            <input type="text" class="form-control" name="t1q1" value="{{ wb_answers.t1q1 }}"></li>
+                        <li>Pixels are arranged on a VDU display in:
+                            <input type="text" class="form-control" name="t1q2" value="{{ wb_answers.t1q2 }}"></li>
+                        <li>In this image, the colour depth is
+                            <input type="text" class="form-control d-inline-block w-25" name="t1q3" value="{{ wb_answers.t1q3 }}"> bit</li>
+                        <li>The size of this image in pixels is
+                            <input type="text" class="form-control" name="t1q4" value="{{ wb_answers.t1q4 }}"></li>
+                        <li>The file size can be calculated as:
+                            <input type="text" class="form-control" name="t1q5" value="{{ wb_answers.t1q5 }}"></li>
+                        <li>The file size for this image is:
+                            <input type="text" class="form-control" name="t1q6" value="{{ wb_answers.t1q6 }}"></li>
+                    </ol>
+
+                    <hr>
+
+                    <!-- Task 2 -->
+                    <h5 class="text-secondary">Task 2 – 2-bit Image</h5>
+                    <img src="{{ url_for('static', filename='images/task2.png') }}" class="img-fluid rounded shadow-sm mb-3" width="300">
+                    <ol start="7">
+                        <li>In this image, the colour depth is
+                            <input type="text" class="form-control d-inline-block w-25" name="t2q1" value="{{ wb_answers.t2q1 }}"> bits</li>
+                        <li>The file size of this image is
+                            <input type="text" class="form-control" name="t2q2" value="{{ wb_answers.t2q2 }}"></li>
+                        <li>The colour palette meta-data is:
+                            <input type="text" class="form-control" name="t2q3" value="{{ wb_answers.t2q3 }}"></li>
+                    </ol>
+
+                    <hr>
+
+                    <!-- Task 3 -->
+                    <h5 class="text-secondary">Task 3 – 3-bit Image</h5>
+                    <img src="{{ url_for('static', filename='images/task3.png') }}" class="img-fluid rounded shadow-sm mb-3" width="300">
+                    <ol start="10">
+                        <li>In this image, the colour depth is
+                            <input type="text" class="form-control d-inline-block w-25" name="t3q1" value="{{ wb_answers.t3q1 }}"> bits</li>
+                        <li>The impact of colour depth on the file size:
+                            <input type="text" class="form-control" name="t3q2" value="{{ wb_answers.t3q2 }}"></li>
+                        <li>The impact of resolution on the file size:
+                            <input type="text" class="form-control" name="t3q3" value="{{ wb_answers.t3q3 }}"></li>
+                    </ol>
+
+                    <hr>
+
+                    <!-- Task 4 -->
+                    <h5 class="text-secondary">Task 4 – Binary Conversion</h5>
+                    <img src="{{ url_for('static', filename='images/task4.png') }}" class="img-fluid rounded shadow-sm mb-3" width="300">
+                    <p>Conversion of a black and white image into binary:</p>
+                    <textarea name="t4q1" class="form-control" rows="4">{{ wb_answers.t4q1 }}</textarea>
+                </div>
+            </div>
+
+            <!-- Task 3: Interactive Activity -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title text-dark">3. Interactive Activity (Seneca)</h4>
+                    <p>
+                        <a href="https://app.senecalearning.com/dashboard/class/j7zdflnz4e/assignments/assignment/47552976-5341-4d84-baee-a6838161e3dd?suggestedProvider=microsoft" 
+                           target="_blank" class="btn btn-outline-primary mb-2">Open Seneca Activity</a>
+                    </p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="interactive_done" name="interactive_done" {% if interactive_done %}checked{% endif %}>
+                        <label class="form-check-label" for="interactive_done">I have completed the Seneca activity</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task 4: Exam Question -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title text-dark">4. Exam Question</h4>
+                    <p>What is the minimum file size for an 800×1000 pixel bitmap image that uses 20 colours? <br><em>Show your working below.</em></p>
+                    <textarea name="exam_answer" class="form-control" rows="6">{{ exam_answer }}</textarea>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="text-end">
+                <button type="submit" class="btn btn-success px-4 py-2">💾 Save My Progress</button>
+            </div>
+        </form>
+
+        <!-- Footer -->
+        <p class="text-center text-muted mt-5" style="font-size: 0.9rem;">
+            © 2025 Dino Kousoulidis
+        </p>
+    </div>
+</body>
+</html>
