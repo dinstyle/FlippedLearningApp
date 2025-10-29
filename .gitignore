@@ -208,7 +208,7 @@ __marimo__/
 
 venv/
 __pycache__/
-*.db
-*.sqlite
+#*.db
+#*.sqlite
 *.pyc
 .env
