@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
+import bcrypt
 
 app = Flask(__name__)
 def get_db_connection():
@@ -26,30 +27,28 @@ def login():
         password = request.form['password']
 
         conn = get_db_connection()
-        teacher = conn.execute(
-            'SELECT * FROM teachers WHERE username = ? AND password = ?',
-            (username, password)
-        ).fetchone()
-
-        student = conn.execute(
-            'SELECT * FROM students WHERE username = ? AND password = ?',
-            (username, password)
+        user = conn.execute(
+            'SELECT * FROM users WHERE username = ?',
+            (username,)
         ).fetchone()
         conn.close()
 
-        if teacher:
-            session['username'] = teacher['username']
-            session['role'] = 'teacher'
-            return redirect(url_for('teacher_dashboard'))
-        elif student:
-            session['username'] = student['username']
-            session['role'] = 'student'
-            session['student_id'] = student['id']   
-            return redirect(url_for('student_dashboard'))
+        if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+            session['username'] = user['username']
+            session['role'] = user['role']
+            session['user_id'] = user['id']
+
+            if user['role'] == 'teacher':
+                return redirect(url_for('teacher_dashboard'))
+            else:
+                return redirect(url_for('student_dashboard'))
+
         else:
             return render_template('login.html', error="Invalid username or password")
 
     return render_template('login.html')
+
+
 
 # Step 3: Teacher dashboard
 @app.route('/teacher')
