@@ -8,6 +8,8 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row  # lets us access columns by name
     return conn
 app.secret_key = "supersecretkey"  # needed for sessions
+def get_current_user_id():
+    return session.get("user_id")
 
 # Step 1: Simple in-memory user storage (we'll use a database later)
 users = {
@@ -93,7 +95,7 @@ def lesson_page(lesson_id):
 
     # Get lesson data
     lesson = conn.execute('SELECT * FROM lessons WHERE id = ?', (lesson_id,)).fetchone()
-    student_id = session.get('student_id')
+    student_id = get_current_user_id()
 
     # Try to get existing record
     progress = conn.execute('SELECT * FROM progress WHERE student_id = ? AND lesson_id = ?', (student_id, lesson_id)).fetchone()
